@@ -21,7 +21,7 @@
 
 (in-package #:webkit.example)
 
-(defparameter *home-uri* "https://google.com")
+(defparameter *home-uri* "https://start.duckduckgo.com")
 
 (define-application (:name main
                      :id "org.bohonghuang.webkit-example")
@@ -38,7 +38,7 @@
                            :spacing 0)))
         (let ((toolbar (make-center-box)))
           (widget-add-css-class toolbar "toolbar")
-          
+
           (let ((box (make-box :orientation +orientation-horizontal+
                                :spacing 4)))
             (let ((button (make-button :icon-name "go-previous-symbolic")))
@@ -104,7 +104,7 @@
         (let ((web-view web-view))
           (setf (widget-vexpand-p web-view) t
                 (widget-hexpand-p web-view) t)
-          (webkit:web-view-load-uri web-view *home-uri*)
+          (webkit:web-view-load-uri web-view (or (second sb-ext:*posix-argv*) home-uri*))
           (box-append box web-view))
         (setf (window-child window) box)))
     (unless (widget-visible-p window)
